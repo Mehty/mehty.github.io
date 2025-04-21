@@ -467,7 +467,9 @@ After a few steps of EDA here is the final code that the agent executed to train
 | Link | Description |
 |------|-------------|
 | [**Notebook**](https://www.kaggle.com/code/mehtysh/ai-ds-helper) |  interactive, executable version on Kaggle |
-| **Video Walkthrough** | *TBA* – 7‑min demo on YouTube |
+| [**Video Walkthrough**](https://www.loom.com/share/2ff33d9f0bec404ba01a813b99fda78d?sid=6ac21b5c-a35c-4588-aace-1734e5a39738)| demo & walkthrough video on loom |
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/2ff33d9f0bec404ba01a813b99fda78d?sid=5299c55c-75b1-4b84-8863-69bf2c48bca2" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ---
 
