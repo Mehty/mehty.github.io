@@ -1,0 +1,13 @@
+# _config.yml
+title: Mehty
+baseurl: ""         # serve at root
+url: "https://mehty.github.io/"
+markdown: kramdown
+theme: minima       # or remove if you're not using a theme
+collections:
+  blogs:
+    output: true
+    permalink: /blogs/:name/
+favicon: /favicon.ico
+plugins:
+  - jekyll-mermaid
