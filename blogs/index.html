@@ -1,13 +1,185 @@
 ---
-layout: default
-title: Blogs
+title: Blog — Mehty
 ---
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Mehty</title>
+  <meta name="description" content="Thoughts on AI, data science, and everything in between.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #07070f; --surface: #0d0d1c; --surface-2: #13132a;
+      --border: rgba(255,255,255,0.06); --border-bright: rgba(255,255,255,0.12);
+      --text: #e0e0f0; --text-muted: #5a5a80; --text-dim: #8080aa;
+      --primary: #818cf8; --primary-dim: rgba(129,140,248,0.15);
+      --secondary: #22d3ee; --accent: #a78bfa;
+      --glow: 0 0 40px rgba(129,140,248,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; min-height: 100vh; }
+    ::selection { background: var(--primary); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Cursor */
+    .c-dot, .c-ring { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .c-dot { width: 6px; height: 6px; background: var(--primary); transition: width .2s, height .2s, background .2s; }
+    .c-ring { width: 36px; height: 36px; border: 1.5px solid rgba(129,140,248,.6); transition: width .35s, height .35s, border-color .3s; }
+    .c-dot.on { width: 8px; height: 8px; background: var(--secondary); }
+    .c-ring.on { width: 56px; height: 56px; border-color: rgba(34,211,238,.4); }
+    @media (hover: none) { .c-dot, .c-ring { display: none; } body { cursor: auto; } }
+
+    /* Nav */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(7,7,15,0.82); backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 3px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); transition: color .2s; }
+    .nav-back:hover { color: var(--primary); }
+
+    /* Main */
+    main { padding: 140px 0 100px; }
+    .container { max-width: 780px; margin: 0 auto; padding: 0 40px; }
+
+    /* Header */
+    .blog-header { margin-bottom: 64px; }
+    .blog-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 16px; }
+    .blog-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 6vw, 64px); font-weight: 700; line-height: 1.1; letter-spacing: -1px; background: linear-gradient(135deg, var(--text) 40%, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; }
+    .blog-sub { font-size: 17px; color: var(--text-dim); line-height: 1.7; }
+
+    /* Post list */
+    .post-list { display: flex; flex-direction: column; gap: 20px; }
+    .post-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px 36px;
+      position: relative; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s, transform .2s;
+    }
+    .post-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(129,140,248,.07), transparent 65%);
+      opacity: 0; transition: opacity .4s;
+    }
+    .post-card:hover::before { opacity: 1; }
+    .post-card:hover { border-color: rgba(129,140,248,.3); box-shadow: var(--glow); transform: translateY(-3px); }
+    .post-date { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; display: block; }
+    .post-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 10px; transition: color .2s; }
+    .post-card:hover h2 { color: var(--primary); }
+    .post-desc { font-size: 15px; color: var(--text-dim); line-height: 1.65; margin-bottom: 20px; }
+    .post-arrow { font-size: 13px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 6px; transition: gap .2s; }
+    .post-card:hover .post-arrow { gap: 10px; }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 80px 0; color: var(--text-muted); }
+    .empty i { font-size: 40px; margin-bottom: 16px; opacity: .3; }
+    .empty p { font-size: 16px; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 36px 0; margin-top: 80px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 3px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.vis { opacity: 1; transform: none; }
+
+    /* Noise */
+    body::after { content: ''; position: fixed; inset: 0; z-index: 5000; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; }
+
+    @media (max-width: 600px) {
+      #nav { padding: 16px 24px; }
+      .container { padding: 0 20px; }
+      .post-card { padding: 24px; }
+    }
+  </style>
 </head>
-<h2>Blog Posts</h2>
-<ul>
-  {% for post in site.blogs %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a> – {{ post.date | date: "%b %d %Y" }}</li>
-  {% endfor %}
-</ul>
+<body>
+  <div class="c-dot"></div>
+  <div class="c-ring"></div>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">MEHTY</a>
+    <a href="/" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="blog-header reveal">
+        <span class="blog-eyebrow">Writing</span>
+        <h1 class="blog-title">Thoughts &amp;<br>Deep Dives.</h1>
+        <p class="blog-sub">Notes on AI engineering, data science, agent architectures, and the ideas that keep me thinking.</p>
+      </div>
+
+      <div class="post-list">
+        {% for post in site.blogs %}
+        <a href="{{ post.url }}" class="post-card reveal tilt-glow">
+          <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+          <h2>{{ post.title }}</h2>
+          {% if post.description %}
+          <p class="post-desc">{{ post.description }}</p>
+          {% endif %}
+          <div class="post-arrow">Read Article <i class="fas fa-arrow-right"></i></div>
+        </a>
+        {% else %}
+        <div class="empty reveal">
+          <i class="fas fa-pen-nib"></i>
+          <p>More writing coming soon.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">MEHTY</span>
+        <p>&copy; 2025 Amirmehdi Sharifzad</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // Cursor
+  (function () {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const dot = document.querySelector('.c-dot'), ring = document.querySelector('.c-ring');
+    let rx = 0, ry = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    function tick() { rx += (cx-rx)*.11; ry += (cy-ry)*.11; dot.style.left=cx+'px'; dot.style.top=cy+'px'; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(tick); }
+    tick();
+    document.querySelectorAll('a,.post-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { dot.classList.add('on'); ring.classList.add('on'); });
+      el.addEventListener('mouseleave', () => { dot.classList.remove('on'); ring.classList.remove('on'); });
+    });
+  })();
+
+  // Scroll reveal
+  const ro = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } }), { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Card glow
+  document.querySelectorAll('.post-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--gx', ((e.clientX-r.left)/r.width*100)+'%');
+      card.style.setProperty('--gy', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+  });
+  </script>
+</body>
+</html>
