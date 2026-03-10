@@ -87,12 +87,10 @@ permalink: /blogs/your-post-slug/
 
 Mermaid diagrams are supported via the `jekyll-mermaid` plugin:
 
-```
-{% mermaid %}
+````mermaid
 graph TD;
   A-->B;
-{% endmermaid %}
-```
+````
 
 ## Deployment / CI
 
